@@ -1,0 +1,59 @@
+yotam181
+208541334
+
+Question 1:
+The different classes i added to the project are:
+1.The class "Leaf" - The class represents an individual leaf in a tree within the game's environment.
+It is both a `GameObject`, making it an interactable object within the game world,
+and an `AvatarJumpListener`, meaning it listens for and reacts to the avatar's jump action.
+The leaf object is in constant movement that mimics the wind this is done using two transitions one to rotate
+the leaf back and forth and one to change the width, when the avatar jumps another transition is initiated to
+rotate the leaf 90 degrees.
+2.The class "Fruit" - The class represents an individual Fruit in a tree within the game's environment,
+It is both a `GameObject`, making it an interactable object within the game world,
+and an `AvatarJumpListener`, meaning it listens for and reacts to the avatar's jump action.
+The fruit can detect a collision with the avatar, when this happens the fruit becomes invisible and 10 energy
+points are added to the avatar. after 30 seconds the fruit becomes visible again, this is done with a
+scheduled task. When the avatar jumps the fruit changes color to a random color for a list of colors.
+3.The class "Tree" - The class represents a tree within the game's environment. It is both a `GameObject`,
+making it an interactable object within the game world, and an `AvatarJumpListener`,
+meaning it listens for and reacts to the avatar's jump action.
+The tree is made up of a trunk and a canopy, the trunk is a rectangle and the canopy is made up of a number
+of leaves and fruits, the tree randomly generates the number of leaves and fruits within the canopy.
+when the avatar jumps the trunk of the tree changes color to a random color variation of brown.
+4. The class "Flora" - The class is in charge of creating the trees in the game, it does this by
+going along the x axis of the world, randomly generating a number and if the number is bellow a threshold
+it creates a tree, the class knows not to spawn a tree on top of the avatar by receiving it's
+staring location.
+
+
+Question 2:
+The Tree class is the central class of the package, acting as an aggregate for the components
+that make up a tree. It manages the Leaf and Fruit objects, organizing them around the tree's structure.
+When a Tree instance is instantiated, it determines the placement of its leaves and fruits relative to
+its own position. This organization establishes a clear hierarchical relationship,
+with Tree at the top, and Leaf and Fruit as dependents.
+
+The Leaf class represents individual leaves, each with its own set of properties and behaviors,
+making them independent objects within the game world.
+Although they are managed by the Tree, leaves do not directly interact with fruits or other trees.
+their behaviors are self-contained.
+
+Similarly, the Fruit class represents the fruit objects that can be interacted with by the player's avatar.
+Like leaves, fruits maintain their own state and behavior, including their response to being collected
+by the player.
+
+The Flora class functions as a factory or a generator for trees within the game world.
+It is responsible for creating Tree instances and placing them within the game environment. It determines
+the location where each tree should be instantiated and passes that location to the Tree constructor.
+The Flora class ensures that trees are distributed throughout the game in a manner that appears natural and
+aligns with the game's terrain, as dictated by the groundHeightAt function.
+
+
+Question 3:
+The Leaf, Tree, and Fruit classes each implement the AvatarJumpListener functional interface,
+embracing the observer design pattern.
+This design allows these elements to be observers of the avatar's jump events. Once instances of these
+classes are instantiated, they are registered to the avatar's jumpListeners array. Consequently, whenever the
+avatar jumps, it invokes the notifyJumpListeners method, which iterates through the array of listeners and
+calls their onAvatarJump method. This results in each leaf, fruit, and tree to respond to the avatar's jump.
